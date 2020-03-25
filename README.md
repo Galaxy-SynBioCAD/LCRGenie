@@ -1,1 +1,1 @@
-docker build -t brsynth/lcrgenie:standalone .
+docker build -t brsynth/lcrgenie-standalone .
