@@ -1,0 +1,95 @@
+<tool id="LCRGenie" name="LCR Genie" version="1.0">
+  <description>Given an SBOL, calculate assembly parts for ligase cycling reaction</description>
+  <requirements>
+    <container type="docker">brsynth/lcrgenie-standalone:dev</container>
+  </requirements>
+  <stdio>
+		<regex match="WARNING:" level="warning" />
+		<regex match="ERROR:" level="error" />
+	</stdio>
+  <command detect_errors="exit_code"><![CDATA[
+    '$__tool_directory__/tool_LCRGenie.py' -input '$format_type.input' -input_format '$format_type.input_format' -output '$output' -melting_temp '$adv.melting_temp'
+  ]]></command>
+  <inputs>
+    <conditional name="format_type">
+      <param name="input_format" type="select" label="Input/output format">
+        <option value="tar" type="text">TAR</option>
+        <option value="sbol" type="text" selected="true">SBOL</option>
+      </param>
+      <when value="tar">
+        <param name="input" type="data" format="tar" label="Input file" />
+      </when>
+      <when value="sbol">
+        <param name="input" type="data" format="xml" label="Input file" />
+      </when>
+    </conditional>
+	<section name="adv" title="Advanced Options" expanded="false">
+      <param name="melting_temp" type="float" value="60.0" label="Melting temperature (Celsius)" />
+		</section>
+  </inputs>
+   <outputs>
+    <data name="output" format="tar" label="LCRGenie" >
+      <change_format>
+        <when input="format_type.input_format" value="sbol" format="xlsx"/>
+      </change_format>
+    </data>
+   </outputs>
+  <help><![CDATA[
+LCR Genie
+==========
+
+The ligase chain reaction (LCR) is a method of DNA amplification that differs from PCR in that it involves a thermostable ligase to join two probes or other molecules together which can then be amplified by standard PCR cycling.
+
+
+Input
+-----
+
+Required:
+
+
+* **-input**\ : (string) Path to the SBOL file
+
+Advanced options:
+
+
+* **-input_type**\ : (string) Input type (valid options: sbol, tar)
+* **-melting_temp**\ : (float) Melting temperature
+
+Output
+------
+
+
+* **-output**\ : (string) Path to the output Excel sheets
+
+Project Links
+---------------------
+
+* `GitHub <https://github.com/Galaxy-SynBioCAD/LCRGenie>`_
+
+Version
+-------
+
+0.1
+
+Authors
+-------
+
+* **Neil Swainston**
+* Melchior du Lac
+
+License
+-------
+
+`MIT <https://raw.githubusercontent.com/Galaxy-SynBioCAD/rpReader/standalone-dev/LICENSE>`_
+
+
+Acknowledgments
+---------------
+
+
+* Thomas Duigou
+* Joan Hérisson
+
+
+]]></help>
+</tool>

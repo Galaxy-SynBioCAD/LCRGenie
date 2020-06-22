@@ -1,0 +1,3 @@
+  <section id="sbc" name="SynBioCAD">
+    <tool file="LCRGenie/code/wrap_LCRGenie.xml" />
+  </section>
