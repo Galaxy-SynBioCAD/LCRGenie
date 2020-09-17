@@ -1,7 +1,7 @@
 <tool id="LCRGenie" name="LCR Genie" version="1.0">
   <description>Given an SBOL, calculate assembly parts for ligase cycling reaction</description>
   <requirements>
-    <container type="docker">brsynth/lcrgenie-standalone:dev</container>
+    <container type="docker">brsynth/lcrgenie-standalone</container>
   </requirements>
   <stdio>
 		<regex match="WARNING:" level="warning" />
